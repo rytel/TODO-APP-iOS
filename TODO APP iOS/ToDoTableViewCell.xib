@@ -20,14 +20,14 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="QyK-DC-bBl">
                         <rect key="frame" x="5" y="5" width="316" height="58"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ePq-V7-EVB">
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePq-V7-EVB">
                                 <rect key="frame" x="0.0" y="0.0" width="316" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3O7-lE-KKx" userLabel="categoryView">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="236" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOe-nc-NJb" userLabel="category">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="236" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -102,6 +102,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="categoryLabel" destination="xOe-nc-NJb" id="41q-Aw-tXN"/>
+                <outlet property="dateLabel" destination="Ypz-Tp-X2l" id="zNE-VF-Ocn"/>
+                <outlet property="nameLabel" destination="qxU-7j-clm" id="Nwe-AG-EW4"/>
+            </connections>
             <point key="canvasLocation" x="136.23188405797103" y="123.21428571428571"/>
         </tableViewCell>
     </objects>

@@ -9,11 +9,22 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    var toDoItemArray = ["1", "2", "3"]
+    @IBOutlet var ToDoTableView: UITableView!
+    var toDoItemArray: [ToDoItem] = [ToDoItem(name: "name1", category: "category1", date: "date1"), ToDoItem(name: "namedsa2", category: "category2", date: "date2"), ToDoItem(name: "name3", category: "category3", date: "date3")]
     
     let defaults = UserDefaults .standard
     override func viewDidLoad() {
         super.viewDidLoad()
+        ToDoTableView.dataSource = self
+        
+//        toDoItemArray.append(ToDoItem(name: "name1", category: "category1", date: "date1"))
+//        toDoItemArray.append(ToDoItem(name: "name2", category: "category2", date: "date2"))
+//        toDoItemArray.append(ToDoItem(name: "name3", category: "category3", date: "date3"))
+        
+        ToDoTableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
+
+
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,9 +48,12 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as! ToDoTableViewCell
         
-        cell.textLabel?.text = toDoItemArray[indexPath.row]
+        cell.nameLabel.text = toDoItemArray[indexPath.row].name
+        cell.dateLabel.text = toDoItemArray[indexPath.row].date
+        cell.categoryLabel.text = toDoItemArray[indexPath.row].category
+        
         
         return cell
     }
