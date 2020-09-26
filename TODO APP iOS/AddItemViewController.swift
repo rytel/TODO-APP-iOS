@@ -10,8 +10,8 @@ import UIKit
 class AddItemViewController: UIViewController {
 
     @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var category: UIStackView!
     @IBOutlet weak var date: UIDatePicker!
-    @IBOutlet weak var category: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

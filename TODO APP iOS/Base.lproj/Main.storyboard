@@ -22,6 +22,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="TODO List" id="Chk-a8-5Pa">
+                        <barButtonItem key="backBarButtonItem" title="Anuluj" id="qgF-kl-yfm"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kLc-BN-5PU">
                             <connections>
                                 <action selector="addButtonPressed:" destination="bHR-hP-aAu" id="S0Q-46-1S0"/>
@@ -45,23 +46,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-0V-aqE">
-                                <rect key="frame" x="15" y="103" width="384" height="744"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-0V-aqE">
+                                <rect key="frame" x="15" y="103" width="384" height="302"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vd4-oB-HZ2">
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nazwa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbZ-rE-6PE">
-                                                <rect key="frame" x="0.0" y="0.0" width="80" height="35"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="K13-uq-dw5"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="0.0" width="51.333333333333336" height="35"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SaR-kV-b3J">
-                                                <rect key="frame" x="90" y="0.0" width="294" height="35"/>
+                                                <rect key="frame" x="61.333333333333343" y="0.0" width="322.66666666666663" height="35"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -70,39 +68,26 @@
                                             <constraint firstAttribute="height" constant="35" id="bSp-UG-cEg"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pBf-ne-c3V">
-                                        <rect key="frame" x="0.0" y="45" width="384" height="330"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F3V-0Y-c04">
+                                        <rect key="frame" x="0.0" y="45" width="384" height="31"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFo-xN-tXX">
-                                                <rect key="frame" x="0.0" y="154.66666666666669" width="80" height="20.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="NRI-Xm-ZRo"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-PV-i9g">
-                                                <rect key="frame" x="90" y="57" width="294" height="216"/>
-                                                <locale key="locale" localeIdentifier="pl_PL"/>
-                                            </datePicker>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jay-vz-Nnm">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="32"/>
+                                                <segments>
+                                                    <segment title="Praca"/>
+                                                    <segment title="Zakupy"/>
+                                                    <segment title="Inne"/>
+                                                </segments>
+                                            </segmentedControl>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F3V-0Y-c04">
-                                        <rect key="frame" x="0.0" y="385" width="384" height="359"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pBf-ne-c3V">
+                                        <rect key="frame" x="0.0" y="86" width="384" height="216"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kategoria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqm-xG-kyk">
-                                                <rect key="frame" x="0.0" y="169.33333333333337" width="80" height="20.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="cah-Y2-MDm"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <pickerView contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Mdc-BZ-1t0">
-                                                <rect key="frame" x="90" y="71.333333333333371" width="294" height="216"/>
-                                            </pickerView>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-PV-i9g">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="216"/>
+                                                <locale key="locale" localeIdentifier="pl_PL"/>
+                                            </datePicker>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -122,12 +107,16 @@
                             <constraint firstItem="p3z-0V-aqE" firstAttribute="top" secondItem="ANZ-bd-LT2" secondAttribute="top" constant="15" id="L4b-vt-7kg"/>
                             <constraint firstAttribute="trailing" secondItem="p3z-0V-aqE" secondAttribute="trailing" constant="15" id="Qc1-IK-syT"/>
                             <constraint firstItem="p3z-0V-aqE" firstAttribute="leading" secondItem="ANZ-bd-LT2" secondAttribute="leading" constant="15" id="tOd-1C-9qI"/>
-                            <constraint firstItem="ANZ-bd-LT2" firstAttribute="bottom" secondItem="p3z-0V-aqE" secondAttribute="bottom" constant="15" id="xmF-wn-ceR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tworzenie nowego Todo" id="NGf-xL-yfu">
                         <barButtonItem key="rightBarButtonItem" title="Zapisz" id="KM4-Gb-ml0"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="category" destination="F3V-0Y-c04" id="2ti-mM-V9J"/>
+                        <outlet property="date" destination="dmT-PV-i9g" id="Ud4-jD-sGt"/>
+                        <outlet property="name" destination="SaR-kV-b3J" id="8SZ-5M-44a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ciR-Jr-Pth" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
