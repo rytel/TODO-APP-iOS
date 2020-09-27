@@ -110,10 +110,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tworzenie nowego Todo" id="NGf-xL-yfu">
-                        <barButtonItem key="rightBarButtonItem" title="Zapisz" id="KM4-Gb-ml0"/>
+                        <barButtonItem key="rightBarButtonItem" title="Zapisz" id="KM4-Gb-ml0">
+                            <connections>
+                                <action selector="addItem:" destination="itj-3O-1qo" id="oxM-1e-NSg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="category" destination="F3V-0Y-c04" id="2ti-mM-V9J"/>
+                        <outlet property="category" destination="jay-vz-Nnm" id="uGO-X4-Ocu"/>
                         <outlet property="date" destination="dmT-PV-i9g" id="Ud4-jD-sGt"/>
                         <outlet property="name" destination="SaR-kV-b3J" id="8SZ-5M-44a"/>
                     </connections>
