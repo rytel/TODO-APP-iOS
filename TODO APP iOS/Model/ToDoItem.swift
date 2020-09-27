@@ -10,5 +10,5 @@ import Foundation
 struct ToDoItem: Encodable, Decodable {
     var name: String?
     var category: Int?
-    var date: String?
+    var date: Date?
 }

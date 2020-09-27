@@ -21,6 +21,10 @@ class ToDoListViewController: UITableViewController {
         ToDoTableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
         loadArray()
         
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        ToDoTableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -31,23 +35,14 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as! ToDoTableViewCell
-            cell.nameLabel.text = viewModelArray[indexPath.row].name
-            cell.dateLabel.text = viewModelArray[indexPath.row].date
-            cell.categoryLabel.text = viewModelArray[indexPath.row].category
+        cell.nameLabel.text = viewModelArray[indexPath.row].name
+        cell.dateLabel.text = viewModelArray[indexPath.row].date
+        cell.categoryLabel.text = viewModelArray[indexPath.row].category
         return cell
     }
     
-    //MARK: - Save and Load func
+    //MARK: -func
     
-    func saveArray() {
-        let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(toDoItemArray)
-            try data.write(to: self.dataFilePath!)
-        } catch {
-            print("Error encoding item array, \(error)")
-        }
-    }
     func loadArray() {
         if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()
@@ -56,6 +51,7 @@ class ToDoListViewController: UITableViewController {
                 for i in 0..<toDoItemArray.count {
                     self.viewModelArray.append(ItemViewModel(toDoItemArray[i]))
                 }
+
             } catch {
                 print("Error decoding toDoItemArray \(error)")
             }

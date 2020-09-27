@@ -16,7 +16,7 @@ class ItemViewModel {
     init(_ toDoItem: ToDoItem) {
         self.item = toDoItem
         name = item.name
-        date = item.date
+        date = String("\(item.date!)".prefix(10))
         switch item.category {
         case 0:
             category = "Praca"

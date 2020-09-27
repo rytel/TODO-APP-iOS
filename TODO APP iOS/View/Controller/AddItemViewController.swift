@@ -14,31 +14,45 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var date: UIDatePicker!
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let defaults = UserDefaults.standard
     var toDoItemArray: [ToDoItem] = []
     
-    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
     }
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-        loadArray()
-        let rrrrmmdd = "\(date.date)".prefix(10)
-        toDoItemArray.append(ToDoItem(name: name.text, category: category.selectedSegmentIndex, date: "\(rrrrmmdd)"))
-        saveArray()
-        //ma zostac zapisane do local storage
-        
+        if name.text != "" {
+            loadArray()
+            toDoItemArray.append(ToDoItem(name: name.text, category: category.selectedSegmentIndex, date: date.date))
+            saveArray()
+        }
+        else {
+            name.placeholder = "Wypełnij"
+        }
     }
+    
+    //MARK: - func
     
     func saveArray() {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(toDoItemArray)
             try data.write(to: self.dataFilePath!)
+            
+            let alert = UIAlertController(title: "Zapisano!", message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {action in self.navigationController?.popToRootViewController(animated: true)}))
+            self.present(alert, animated: true)
         } catch {
             print("Error encoding item array, \(error)")
+            
+            let alert = UIAlertController(title: "Nie zapisano wydarzenia", message: "Czy chcesz spróbować ponownie?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: {action in self.navigationController?.popToRootViewController(animated: true)}))
+            self.present(alert, animated: true)
         }
+        
     }
     func loadArray() {
         if let data = try? Data(contentsOf: dataFilePath!) {
@@ -50,6 +64,17 @@ class AddItemViewController: UIViewController {
             }
         }
     }
-    
-    
+}
+
+//MARK: - extension
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
