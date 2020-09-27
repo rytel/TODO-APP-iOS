@@ -20,11 +20,10 @@ class ToDoListViewController: UITableViewController {
         ToDoTableView.dataSource = self
         ToDoTableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
         loadArray()
-        
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        ToDoTableView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        loadArray()
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -48,7 +47,7 @@ class ToDoListViewController: UITableViewController {
             let decoder = PropertyListDecoder()
             do {
                 toDoItemArray = try decoder.decode([ToDoItem].self, from: data)
-                for i in 0..<toDoItemArray.count {
+                for i in self.viewModelArray.count..<toDoItemArray.count {
                     self.viewModelArray.append(ItemViewModel(toDoItemArray[i]))
                 }
 
