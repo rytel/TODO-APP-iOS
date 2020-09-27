@@ -15,17 +15,16 @@ class AddItemViewController: UIViewController {
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     let defaults = UserDefaults.standard
-    var toDoItemArray: [ToDoItem] = []
+    var itemArray: [Item] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         if name.text != "" {
             loadArray()
-            toDoItemArray.append(ToDoItem(name: name.text, category: category.selectedSegmentIndex, date: date.date))
+            itemArray.append(Item(name: name.text, category: category.selectedSegmentIndex, date: date.date))
             saveArray()
         }
         else {
@@ -38,7 +37,7 @@ class AddItemViewController: UIViewController {
     func saveArray() {
         let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(toDoItemArray)
+            let data = try encoder.encode(itemArray)
             try data.write(to: self.dataFilePath!)
             
             let alert = UIAlertController(title: "Zapisano!", message: nil, preferredStyle: .actionSheet)
@@ -52,13 +51,12 @@ class AddItemViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: {action in self.navigationController?.popToRootViewController(animated: true)}))
             self.present(alert, animated: true)
         }
-        
     }
     func loadArray() {
         if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()
             do {
-                toDoItemArray = try decoder.decode([ToDoItem].self, from: data)
+                itemArray = try decoder.decode([Item].self, from: data)
             } catch {
                 print("Error decoding toDoItemArray \(error)")
             }

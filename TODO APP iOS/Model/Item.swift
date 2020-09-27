@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoItem: Encodable, Decodable {
+struct Item: Encodable, Decodable {
     var name: String?
     var category: Int?
     var date: Date?

@@ -12,7 +12,7 @@ class ToDoListViewController: UITableViewController {
     @IBOutlet var ToDoTableView: UITableView!
     
     var viewModelArray: [ItemViewModel] = []
-    var toDoItemArray: [ToDoItem] = []
+    var itemArray: [Item] = []
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     override func viewDidLoad() {
@@ -24,7 +24,6 @@ class ToDoListViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadArray()
         tableView.reloadData()
-        
     }
     
     // MARK: - Table view data source
@@ -53,9 +52,9 @@ class ToDoListViewController: UITableViewController {
         if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()
             do {
-                toDoItemArray = try decoder.decode([ToDoItem].self, from: data)
-                for i in self.viewModelArray.count..<toDoItemArray.count {
-                    self.viewModelArray.append(ItemViewModel(toDoItemArray[i]))
+                itemArray = try decoder.decode([Item].self, from: data)
+                for i in self.viewModelArray.count..<itemArray.count {
+                    self.viewModelArray.append(ItemViewModel(itemArray[i]))
                 }
 
             } catch {

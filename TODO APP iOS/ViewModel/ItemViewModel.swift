@@ -8,12 +8,12 @@
 import Foundation
 
 class ItemViewModel {
-    let item: ToDoItem
+    let item: Item
     let name: String!
     let date: String!
     let category: String!
 
-    init(_ toDoItem: ToDoItem) {
+    init(_ toDoItem: Item) {
         self.item = toDoItem
         name = item.name
         date = String("\(item.date!)".prefix(10))
