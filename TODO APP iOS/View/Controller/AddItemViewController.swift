@@ -13,8 +13,7 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var category: UISegmentedControl!
     @IBOutlet weak var date: UIDatePicker!
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
-    let defaults = UserDefaults.standard
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(CONST.itemsPlist)
     var itemArray: [Item] = []
     
     override func viewDidLoad() {
