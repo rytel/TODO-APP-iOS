@@ -30,11 +30,11 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if viewModelArray.count == 0 {
-                self.tableView.setEmptyMessage("Lista Pusta")
-            } else {
-                self.tableView.restore()
-            }
-
+            self.tableView.setEmptyMessage("Lista Pusta")
+        } else {
+            self.tableView.restore()
+        }
+        
         return viewModelArray.count
     }
     
@@ -44,6 +44,32 @@ class ToDoListViewController: UITableViewController {
         cell.dateLabel.text = viewModelArray[indexPath.row].date
         cell.categoryLabel.text = viewModelArray[indexPath.row].category
         return cell
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let alert = UIAlertController(title: "Czy chcesz usunąć wydarzenie", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: {action in
+                tableView.beginUpdates()
+                self.itemArray.remove(at: indexPath.row)
+                self.viewModelArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+                tableView.reloadData()
+                let encoder = PropertyListEncoder()
+                do {
+                    let data = try encoder.encode(self.itemArray)
+                    try data.write(to: self.dataFilePath!)
+                    let alert = UIAlertController(title: "Usunięto!", message: nil, preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                } catch {
+                    print("Error encoding item array, \(error)")
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     //MARK: - func
@@ -65,7 +91,7 @@ class ToDoListViewController: UITableViewController {
 
 //MARK: - extension
 extension UITableView {
-
+    
     func setEmptyMessage(_ message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         messageLabel.text = message
@@ -74,11 +100,11 @@ extension UITableView {
         messageLabel.textAlignment = .center
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
         messageLabel.sizeToFit()
-
+        
         self.backgroundView = messageLabel
         self.separatorStyle = .none
     }
-
+    
     func restore() {
         self.backgroundView = nil
         self.separatorStyle = .singleLine
