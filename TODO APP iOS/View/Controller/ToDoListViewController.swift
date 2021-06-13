@@ -13,7 +13,7 @@ class ToDoListViewController: UITableViewController {
     
     var viewModelArray: [ItemViewModel] = []
     var itemArray: [Item] = []
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(CONST.itemsPlist)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,52 +24,6 @@ class ToDoListViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadArray()
         tableView.reloadData()
-    }
-    
-    // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewModelArray.count == 0 {
-            self.tableView.setEmptyMessage("Lista Pusta")
-        } else {
-            self.tableView.restore()
-        }
-        
-        return viewModelArray.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CONST.ToDoTableViewCell, for: indexPath) as! ToDoTableViewCell
-        cell.nameLabel.text = viewModelArray[indexPath.row].name
-        cell.dateLabel.text = viewModelArray[indexPath.row].date
-        cell.categoryLabel.text = viewModelArray[indexPath.row].category
-        return cell
-    }
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            let alert = UIAlertController(title: "Czy chcesz usunąć wydarzenie", message: nil, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: {action in
-                tableView.beginUpdates()
-                self.itemArray.remove(at: indexPath.row)
-                self.viewModelArray.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.endUpdates()
-                tableView.reloadData()
-                let encoder = PropertyListEncoder()
-                do {
-                    let data = try encoder.encode(self.itemArray)
-                    try data.write(to: self.dataFilePath!)
-                    let alert = UIAlertController(title: "Usunięto!", message: nil, preferredStyle: .actionSheet)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-                } catch {
-                    print("Error encoding item array, \(error)")
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
     }
     
     //MARK: - func
@@ -85,6 +39,53 @@ class ToDoListViewController: UITableViewController {
             } catch {
                 print("Error decoding toDoItemArray \(error)")
             }
+        }
+    }
+    
+    // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if viewModelArray.count == 0 {
+            self.tableView.setEmptyMessage("Lista Pusta")
+        } else {
+            self.tableView.restore()
+        }
+        return viewModelArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CONST.ToDoTableViewCell, for: indexPath) as! ToDoTableViewCell
+        cell.nameLabel.text = viewModelArray[indexPath.row].name
+        cell.dateLabel.text = viewModelArray[indexPath.row].date
+        cell.categoryLabel.text = viewModelArray[indexPath.row].category
+        return cell
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let alert = UIAlertController(title: "Czy chcesz usunąć wydarzenie", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: {action in
+                
+                tableView.beginUpdates()
+                self.itemArray.remove(at: indexPath.row)
+                self.viewModelArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+                tableView.reloadData()
+                
+                let encoder = PropertyListEncoder()
+                do {
+                    let data = try encoder.encode(self.itemArray)
+                    try data.write(to: self.dataFilePath!)
+                    let alert = UIAlertController(title: "Usunięto!", message: nil, preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                } catch {
+                    print("Error encoding item array, \(error)")
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
         }
     }
 }
